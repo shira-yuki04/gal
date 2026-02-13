@@ -1,16 +1,82 @@
+// NO button movement
 const noButton = document.getElementById('noButton');
+if(noButton) {
+    noButton.addEventListener('click', function() {
+        const maxX = window.innerWidth - noButton.offsetWidth - 20;
+        const maxY = window.innerHeight - noButton.offsetHeight - 20;
+        
+        const randomX = Math.floor(Math.random() * (maxX - 100)) + 50;
+        const randomY = Math.floor(Math.random() * (maxY - 100)) + 50;
+        
+        noButton.style.left = randomX + 'px';
+        noButton.style.top = randomY + 'px';
+    });
+}
 
-noButton.addEventListener('click', function() {
-    // Get viewport dimensions
-    const maxX = window.innerWidth - noButton.offsetWidth - 20;  // Added -20 for padding
-    const maxY = window.innerHeight - noButton.offsetHeight - 20;
+// Name validation form
+const form = document.getElementById('nameForm');
+if(form) {
+    const nameInput = document.getElementById('nameInput');
+    const errorMessage = document.getElementById('errorMessage');
+    const correctName = ["Shahrukh", "Ayan"];
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const enteredName = nameInput.value.trim();
+        const isNameCorrect = correctName.some(name => name.toLowerCase() === enteredName.toLowerCase());
+        
+        if(isNameCorrect) {
+            // SAVE THE NAME before redirecting
+            localStorage.setItem('userName', enteredName);
+            console.log('Name saved:', enteredName);
+            window.location.href = 'index.html';
+        } else {
+            alert("Bro!!! I'm not stealing your money. Enter actual name");
+            errorMessage.style.display = 'block';
+            nameInput.value = '';
+        }
+    });
+}
+
+// Galentine form - Load saved name and handle submission
+const galentineForm = document.getElementById('galentineForm');
+if(galentineForm) {
+    const savedName = localStorage.getItem('userName');
+    const hiddenNameInput = document.getElementById('hiddenName');  // FIXED: was 'hiddenNameInput'
     
-    // Generate random position with minimum boundaries
-    const randomX = Math.floor(Math.random() * (maxX - 100)) + 50; // Keep away from edges
-    const randomY = Math.floor(Math.random() * (maxY - 100)) + 50;
+    console.log("Saved name:", savedName);
     
-    noButton.style.left = randomX + 'px';
-    noButton.style.top = randomY + 'px';
+    if(savedName && hiddenNameInput) {
+        hiddenNameInput.value = savedName;
+        console.log("Hidden input set to:", hiddenNameInput.value);
+    }
     
-    console.log('Button moved to:', randomX, randomY); // Debug to see positions
-});
+    // Handle form submission to Python server
+    galentineForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = hiddenNameInput.value;
+        console.log('Submitting name:', name);
+        
+        try {
+            const response = await fetch('http://localhost:5000/submit-name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: name })
+            });
+            
+            if (response.ok) {
+                console.log('Success!');
+                window.location.href = 'page3.html';
+            } else {
+                alert('Error sending response');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error connecting to server. Make sure Python server is running!');
+        }
+    });
+}
