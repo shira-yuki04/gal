@@ -18,7 +18,7 @@ def submit_name():
         print(f"Received name: {name}")
        
         email_address = "politelygetlost@gmail.com" 
-        email_password = "kddx ozvh xkof wvqb"  
+        email_password = os.environ.get('EMAIL_PASSWORD', 'kddx ozvh xkof wvqb')  
         
      
         message = MIMEMultipart()
@@ -56,4 +56,5 @@ if __name__ == '__main__':
 flask
 flask-cors
 
-web: python server.py
+web: python sever.py
+
