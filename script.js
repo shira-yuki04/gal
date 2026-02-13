@@ -18,7 +18,7 @@ const form = document.getElementById('nameForm');
 if(form) {
     const nameInput = document.getElementById('nameInput');
     const errorMessage = document.getElementById('errorMessage');
-    const correctName = ["Shahrukh", "Ayan","Avantika","Soni","Manzil"."Zeba","Megha"];
+    const correctName = ["Shahrukh", "Ayan","Avantika","Soni","Manzil","Zeba","Megha"];
 
     form.addEventListener('submit', function(e) {
         e.preventDefault();
