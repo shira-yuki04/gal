@@ -11,20 +11,19 @@ CORS(app)
 @app.route('/submit-name', methods=['POST'])
 def submit_name():
     try:
-        # Get the name from the form
+       
         data = request.get_json()
         name = data.get('name', 'No name provided')
         
         print(f"Received name: {name}")
+       
+        email_address = "politelygetlost@gmail.com" 
+        email_password = "kddx ozvh xkof wvqb"  
         
-        # Email configuration - use SAME email for both sender and receiver
-        email_address = "politelygetlost@gmail.com"  # Your Gmail
-        email_password = "kddx ozvh xkof wvqb"  # Get this from Google
-        
-        # Create email
+     
         message = MIMEMultipart()
         message['From'] = email_address
-        message['To'] = email_address  # Sending to yourself
+        message['To'] = email_address  
         message['Subject'] = "Someone Said YES to Galentines!"
         
         body = f"""
@@ -37,7 +36,7 @@ Submitted at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         
         message.attach(MIMEText(body, 'plain'))
         
-        # Send email
+       
         with smtplib.SMTP('smtp.gmail.com', 587) as server:
             server.starttls()
             server.login(email_address, email_password)
@@ -51,4 +50,5 @@ Submitted at: {datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 if __name__ == '__main__':
+
     app.run(debug=True, port=5000)
