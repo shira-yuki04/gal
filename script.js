@@ -30,7 +30,7 @@ if(form) {
             // SAVE THE NAME before redirecting
             localStorage.setItem('userName', enteredName);
             console.log('Name saved:', enteredName);
-            window.location.href = 'index.html';
+            window.location.href = 'page1.html';
         } else {
             alert("Bro!!! I'm not stealing your money. Enter actual name");
             errorMessage.style.display = 'block';
