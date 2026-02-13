@@ -60,7 +60,7 @@ if(galentineForm) {
         console.log('Submitting name:', name);
         
         try {
-            const response = await fetch('http://localhost:5000/submit-name', {
+            const response = await fetch('https://gal-production.up.railway.app/submit-name', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
