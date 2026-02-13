@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <h1>HAPPY GALENTINES' DAY</h1>
+    <h1>HAPPY GALENTINE'S DAY</h1>
     <div class="content">
         <div class="column">
-            <form>
+            <form method="POST" id="galentineForm">
                 <h2 >Hello my Galentine</h2>
                 <p style="padding: 20px;">Don't be a meanie!<br>it's just a <br><b>YES?</b></p>
+                <input type="hidden" name="name" id="hiddenName"placeholder="Name should appear here">
                 <div class="column">
                     <button style="background-color: rgb(101, 212, 101);font-size: 50px;" type="button" onclick="window.location.href='page3.html'">YES</button>
                     <button style="background-color: rgb(179, 41, 41);font-size: 50px;" type="button" onclick="window.location.href='page6.html'">NO</button>
@@ -24,5 +25,6 @@
             </video>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
